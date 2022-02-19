@@ -10,7 +10,8 @@ var = None
 
 @app.route("/")
 def home():
-    return render_template('home.html')
+    #return render_template('home.html')
+    return render_template('test.html')
 
 @app.route('/uploader', methods = ['GET', 'POST'])
 def upload_file():
@@ -33,7 +34,9 @@ if __name__ == '__main__':
     app.run(debug=True)
 
     # changes directory to uploads folder
-    curr_dir = os.chdir(os.getcwd() + "/uploads/")
+    ref_dir = os.getcwd()
+
+    curr_dir = os.chdir(ref_dir + "/uploads/")
 
     files = os.listdir(os.getcwd())
     recent_file = max(files, key=os.path.getctime)
@@ -41,8 +44,21 @@ if __name__ == '__main__':
     print(recent_file)
 
     # column names since the bank statements don't include them by default
-    #colnames=['TIMESTAMP', 'DESCRIPTION', 'WITHDRAWALS', 'DEPOSITS'] 
-    colnames=['TIMESTAMP', 'DESCRIPTION', 'AMOUNT'] 
+    # colnames=['TIMESTAMP', 'DESCRIPTION', 'WITHDRAWALS', 'DEPOSITS']
+    colnames=['TIMESTAMP', 'DESCRIPTION', 'AMOUNT']
     df = pd.read_csv('test.csv', sep=',', header=None, names=colnames)
     add_categories(df)
     print(df)
+
+    prev_dir = os.chdir(ref_dir + "/templates")
+    html_file = os.listdir(os.getcwd())
+    print(html_file)
+
+    result = df.to_html()
+    text_file = open("test.html", "w")
+    text_file.write(result)
+    text_file.close()
+
+
+
+
