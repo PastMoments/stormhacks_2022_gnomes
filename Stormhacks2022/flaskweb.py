@@ -2,10 +2,13 @@ from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.utils import secure_filename
 import os
+import pandas as pd
 
+os.mkdir('./uploads')
 UPLOAD_FOLDER = './uploads'
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+var = None
 
 @app.route("/")
 def home():
