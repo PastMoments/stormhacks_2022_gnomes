@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for
 from werkzeug.utils import secure_filename
 import os
+import pandas as pd
 
 UPLOAD_FOLDER = './uploads'
 app = Flask(__name__)
@@ -19,6 +20,12 @@ def upload_file():
       f.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
       return redirect(url_for('home', name = filename))
 
+def category_map(description):
+    pass
+    
+
+def add_categories(data_frame):
+    data_frame["CATEGORIES"] = data_frame["DESCRIPTION"].map(lambda x: f"{x} shea")
 
 
 if __name__ == '__main__':
@@ -33,5 +40,9 @@ if __name__ == '__main__':
 
     print(recent_file)
 
-    df = pd.read_csv('test.csv', sep=',', header=None)
+    # column names since the bank statements don't include them by default
+    #colnames=['TIMESTAMP', 'DESCRIPTION', 'WITHDRAWALS', 'DEPOSITS'] 
+    colnames=['TIMESTAMP', 'DESCRIPTION', 'AMOUNT'] 
+    df = pd.read_csv('test.csv', sep=',', header=None, names=colnames)
+    add_categories(df)
     print(df)
