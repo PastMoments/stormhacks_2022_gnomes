@@ -21,5 +21,19 @@ def upload_file():
       f.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
       return redirect(url_for('home', name = filename))
 
+
+
 if __name__ == '__main__':
+
     app.run(debug=True)
+
+    # changes directory to uploads folder
+    curr_dir = os.chdir(os.getcwd() + "/uploads/")
+
+    files = os.listdir(os.getcwd())
+    recent_file = max(files, key=os.path.getctime)
+
+    print(recent_file)
+
+    df = pd.read_csv('test.csv', sep=',', header=None)
+    print(df)
