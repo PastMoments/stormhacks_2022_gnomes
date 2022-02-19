@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for
 from werkzeug.utils import secure_filename
 import os
 import pandas as pd
+import re
 
 UPLOAD_FOLDER = './uploads'
 app = Flask(__name__)
@@ -20,12 +21,25 @@ def upload_file():
       f.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
       return redirect(url_for('home', name = filename))
 
+
 def category_map(description):
-    pass
+    description_category_map = {
+        r"(?i)Riot*Games": "Entertainment",
+        r"(?i)JUICE": "Food",
+        r"(?i)UBER*EATS": "Food",
+        r"(?i)UBER": "Transportation",
+    }
+
+    for search_term, category in description_category_map.items():
+        if(re.search(search_term, description)):
+            return category
+
+    return "Unknown"
     
 
 def add_categories(data_frame):
-    data_frame["CATEGORIES"] = data_frame["DESCRIPTION"].map(lambda x: f"{x} shea")
+    data_frame["CATEGORIES"] = data_frame["DESCRIPTION"].map(category_map)
+
 
 
 if __name__ == '__main__':
