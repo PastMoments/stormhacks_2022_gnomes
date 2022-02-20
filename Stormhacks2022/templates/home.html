@@ -3,7 +3,9 @@
   <head>
     <meta charset="utf-8">
     <title>pyrite</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"> </script>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
   </head>
 
@@ -15,7 +17,28 @@
        <input type = "submit"/>
     </form>
 
-<canvas id="pie" width="400" height="400"></canvas>
+    <canvas id="pie" width="100px" height="100px"></canvas>
+    <script>
+    const data = {
+                
+        labels: ['shabaloma','shea','aigoooo'],
+        datasets: [{
+            label: 'My First Dataset',
+            data: [{{', '.join(str(pie_data))}}],
+            backgroundColor: [
+              'rgb(255, 99, 132)',
+              'rgb(54, 162, 235)',
+              'rgb(255, 205, 86)'
+            ],
+            hoverOffset: 4
+        }]
+    };
+    var pie = new Chart("pie", {
+        type: "doughnut",
+        data: data,
+        options: {}
+    }); 
+    </script>
 
 {% for table in tables %}
             {{titles[loop.index]}}

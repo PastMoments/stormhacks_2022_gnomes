@@ -9,19 +9,20 @@ import numpy as np
 UPLOAD_FOLDER = './uploads'
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-app.secret_key = b'_53Ff3"F4QFdz\n\xec]/'
 app.config['SESSION_TYPE'] = 'filesystem'
+app.secret_key = b'_53Ff3"F4QFdz\n\xec]/'
 var = None
 
 @app.route("/")
 def home():
+    pie_data = [2,10,4]
     df_json = session.get("transactions")
     if df_json:
         df = pd.read_json(df_json, dtype=True)
         df = df.fillna(value=np.nan)
-        return render_template('home.html', tables=[df.to_html(classes='data', na_rep='')], titles=df.columns.values)
+        return render_template('home.html', tables=[df.to_html(classes='data', na_rep='')], titles=df.columns.values, pie_data=pie_data)
     else:
-        return render_template('home.html')
+        return render_template('home.html', pie_data=pie_data)
 
 @app.route('/uploader', methods = ['GET', 'POST'])
 def upload_file():
@@ -39,6 +40,7 @@ def upload_file():
             session["transactions"] = df.to_json()
         else:
             session["transactions"] = ""
+
     return redirect(url_for('home'))
 
 def category_map(description):                                                                                                            
