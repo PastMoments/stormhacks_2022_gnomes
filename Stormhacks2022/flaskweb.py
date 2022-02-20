@@ -53,40 +53,38 @@ def dashboard():
         return render_template('home.html')
 
 
-def category_map(description):                                                                                                            
-    description_category_map = {                                                                                                          
-        r"(?i)Riot": "Entertainment",                                                                                               
-        r"(?i)JUICE": "Food",                                                                                                             
-        r"(?i)UBER*EATS": "Food",                                                                                                         
-        r"(?i)UBER": "Transportation",                                                                                                    
-        r"(?i)DD": "Food",                                                                                                                
-        r"(?i)DOORDASH": "Food",                                                                                                          
-        r"(?i)Spotify": "Entertainment",                                                                                                  
-        r"(?i)\w*Market": "Food",                                                                                                         
-        r"(?i)DHL": "Delivery",                                                                                                           
-        r"(?i)Home": "Housing",                                                                                                           
-        r"(?i)Landmark": "Entertainment",                                                                                                 
-        r"(?i)Steam": "Entertainment",                                                                                                    
-        r"(?i)Ramen": "Food",                                                                                                             
-        r"(?i)DR": "Health",                                                                                                              
-        r"(?i)Hair": "Health",                                                                                                            
-                                                                                                                                          
-    }                                                                                                                                     
-                                                                                                                                          
-    for search_term, category in description_category_map.items():                                                                        
-        if(re.search(search_term, description)):                                                                                          
-            return category                                                                                                               
-                                                                                                                                          
+def category_map(description):
+    description_category_map = {
+        r"(?i)Riot*": "Entertainment",
+        r"(?i)JUICE": "Food",
+        r"(?i)UBER*EATS": "Food",
+        r"(?i)UBER": "Transportation",
+        r"(?i)DD": "Food",
+        r"(?i)DOORDASH": "Food",
+        r"(?i)Spotify": "Entertainment",
+        r"(?i)\w*Market": "Food",
+        r"(?i)DHL": "Devliery",
+        r"(?i)Home": "Housing",
+        r"(?i)Landmark": "Entertainment",
+        r"(?i)Steam": "Entertainment",
+        r"(?i)Ra-men": "Food",
+        r"(?i)DR": "Health",
+        r"(?i)Hair": "Health",
+        r"(?i)Happymeat": "Income",
+        r"(?i)Interest": "Income",
+        r"(?i)WPS": "Income",
+
+    }
+
+    for search_term, category in description_category_map.items():
+        if(re.search(search_term, description)):
+            return category
+
     return "Other"
-    
+
 
 def add_categories(data_frame):
     data_frame["CATEGORIES"] = data_frame["DESCRIPTION"].map(category_map)
 
-
 if __name__ == "__main__":
     app.run(debug=True)
-
-
-
-

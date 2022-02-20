@@ -1,18 +1,21 @@
-body {
-  margin: 0;
-  padding: 0;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  color: #444;
+.main
+{
+  height:150px;
+  width: 250px;
+  background: #000;
+  font-size: 200px;
+  font-family: "Quicksand", sans-serif;
+  color: #FFF;
+  text-align: center;
+  padding: 0 20px;
+  margin: 20px;
+  display: flex;
+  align-items: center;
 }
-/*
- * Formatting the header area
- */
-header {
-  background-color: #DFB887;
-  height: 35px;
-  width: 100%;
-  opacity: .9;
-  margin-bottom: 10px;
+
+h1
+{
+  color: yellow;
 }
 
 
