@@ -33,7 +33,7 @@ def upload_file():
 
             # column names since the bank statements don't include them by default
             colnames=['TIMESTAMP', 'DESCRIPTION', 'WITHDRAWALS', 'DEPOSITS', 'BALANCE']
-            df = pd.read_csv(path, sep=',', header=None, names=colnames)
+            df = pd.read_csv(filename, sep=',', header=None, names=colnames)
             add_categories(df)
 
             session["transactions"] = df.to_json()
