@@ -144,6 +144,10 @@ a {
   grid-template-rows: 1fr 1fr;
 }
 
+.heading-area {
+  width: 400px;
+}
+
 .right-col {
   display: flex;
   flex-direction: column;
@@ -155,14 +159,15 @@ a {
 
 .upload-box {
   background-color: white;
-  padding: 2rem 5rem;
+  padding: 3rem 6rem;
   border-radius: 10px;
   margin: 5rem 0 2rem 0;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 .droparea {
   margin: 2rem 0;
-  width: 450px;
+  width: 500px;
   height: 233px;
 
   display: flex;
