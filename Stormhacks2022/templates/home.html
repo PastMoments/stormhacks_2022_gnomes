@@ -1,9 +1,9 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
+  <!DOCTYPE html>
+  <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
     <style>
-    @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap');
     </style>
 
     <title>Pyrite</title>
@@ -13,50 +13,85 @@
   </head>
 
   <body>
-    <h1>Home Page</h1>
 
-<div class="container">
-    <div class="droparea" ondrop="dropHandler(event);" ondragover="dragOverHandler(event);">Drop Here</div>
-    <p id="filename">No file selected</p>
-</div>
+
+    <!--     <h1>Home Page</h1> -->
+
+    <section class="onboarding-grid">
+
+      <div class="left-col">
+
+        <div class="branding">
+          <img src="{{ url_for('static', filename='pyrite_color_logo.png') }}">
+        </div>
+
+        <div class="heading-area">
+          <h2 class="copy-text">Let's get started</h2>
+          <h3 class="copy-text">Easy to read financial reports.</h3>
+        </div>
+
+      </div>
+
+      <div class="right-col pyrite-light-purple-bgd">
+        <h3>Start by uploading your <br> monthly bank statements</h3>
+        <div class="droparea" ondrop="dropHandler(event);" ondragover="dragOverHandler(event);">
+          <img src="{{ url_for('static', filename='upload.png') }}">
+          <p>Drag and drop or browse your files</p>
+        </div>
+        <p id="filename">No file selected</p>
+        <a href={{url_for('correct_categories')}}>Continue</a> <br>
+        <br>
+
+        <a href='/404'>I want to manually input data</a> <br>
+        <a href='/404'>How do I get my monthly bank statements?</a>
+
+
+      </div>
+
+    </section>
+
+  <!-- <div class="container">
+      <div class="droparea" ondrop="dropHandler(event);" ondragover="dragOverHandler(event);">Drop Here</div>
+      <p id="filename">No file selected</p>
+    </div> -->
 
     <script>
-function dropHandler(ev) {
-  ev.preventDefault();
+      function dropHandler(ev) {
+        ev.preventDefault();
 
-  if (ev.dataTransfer.items) {
-    for (var i = 0; i < ev.dataTransfer.items.length; i++) {
-      if (ev.dataTransfer.items[i].kind === 'file') {
-        var file = ev.dataTransfer.items[i].getAsFile();
+        if (ev.dataTransfer.items) {
+          for (var i = 0; i < ev.dataTransfer.items.length; i++) {
+            if (ev.dataTransfer.items[i].kind === 'file') {
+              var file = ev.dataTransfer.items[i].getAsFile();
 
-        var formData = new FormData();
-        formData.append("file", file.name);
-        document.getElementById("filename").innerHTML = file.name;
-        break;
+              var formData = new FormData();
+              formData.append("file", file.name);
+              document.getElementById("filename").innerHTML = file.name;
+              break;
+            }
+          }
+        } else {
+          for (var i = 0; i < ev.dataTransfer.files.length; i++) {
+            var formData = new FormData();
+            formData.append("file", ev.dataTransfer.files[i].name);
+            document.getElementById("filename").innerHTML = ev.dataTransfer.files[i].name;
+            break;
+          }
+        }
       }
-    }
-  } else {
-    for (var i = 0; i < ev.dataTransfer.files.length; i++) {
-      var formData = new FormData();
-      formData.append("file", ev.dataTransfer.files[i].name);
-      document.getElementById("filename").innerHTML = ev.dataTransfer.files[i].name;
-      break;
-    }
+
+      function dragOverHandler(ev) {
+        console.log('File(s) in drop zone');
+
+    // Prevent default behavior (Prevent file from being opened)
+    ev.preventDefault();
   }
-}
+</script>
 
-function dragOverHandler(ev) {
-  console.log('File(s) in drop zone');
+<!-- <a href={{url_for('correct_categories')}}>Continue</a> <br>
+<br>
 
-  // Prevent default behavior (Prevent file from being opened)
-  ev.preventDefault();
-}
-    </script>
-
-    <a href={{url_for('correct_categories')}}>Continue</a> <br>
-    <br>
-
-    <a href='/404'>I want to manually input data</a> <br>
-    <a href='/404'>How do I get my monthly bank statements?</a>
-  </body>
+<a href='/404'>I want to manually input data</a> <br>
+<a href='/404'>How do I get my monthly bank statements?</a> -->
+</body>
 </html>
