@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>pyrite</title>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"> </script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+  </head>
+
+  <body>
+    <h1>Dashboard</h1>
+    <canvas id="pie" width="100px" height="100px"></canvas>
+    <script>
+    const data = {
+                
+        labels: ['shabaloma','shea','aigoooo'],
+        datasets: [{
+            label: 'My First Dataset',
+            data: [{{pie_data|join(', ')}}],
+            backgroundColor: [
+              'rgb(255, 99, 132)',
+              'rgb(54, 162, 235)',
+              'rgb(255, 205, 86)'
+            ],
+            hoverOffset: 4
+        }]
+    };
+    var pie = new Chart("pie", {
+        type: "doughnut",
+        data: data,
+        options: {}
+    }); 
+    </script>
+
+{% for table in tables %}
+            {{titles[loop.index]}}
+            {{ table|safe }}
+{% endfor %}
+
+  </body>
+</html>

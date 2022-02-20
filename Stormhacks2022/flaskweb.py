@@ -15,14 +15,7 @@ var = None
 
 @app.route("/")
 def home():
-    pie_data = [2,10,4]
-    df_json = session.get("transactions")
-    if df_json:
-        df = pd.read_json(df_json, dtype=True)
-        df = df.fillna(value=np.nan)
-        return render_template('home.html', tables=[df.to_html(classes='data', na_rep='')], titles=df.columns.values, pie_data=pie_data)
-    else:
-        return render_template('home.html', pie_data=pie_data)
+    return render_template('home.html')
 
 @app.route('/uploader', methods = ['GET', 'POST'])
 def upload_file():
@@ -41,11 +34,28 @@ def upload_file():
         else:
             session["transactions"] = ""
 
-    return redirect(url_for('home'))
+    return redirect(url_for('correct_categories'))
+
+@app.route('/correction')
+def correct_categories():
+    return render_template('correction.html')
+
+@app.route('/dashboard')
+def dashboard():
+    df_json = session.get("transactions")
+    if df_json:
+        df = pd.read_json(df_json, dtype=True)
+        df = df.fillna(value=np.nan)
+
+        pie_data = [2,10,4]
+        return render_template('dashboard.html', pie_data=pie_data, tables=[df.to_html(classes='data', na_rep='')], titles=df.columns.values)
+    else:
+        return render_template('home.html')
+
 
 def category_map(description):                                                                                                            
     description_category_map = {                                                                                                          
-        r"(?i)Riot*Games": "Entertainment",                                                                                               
+        r"(?i)Riot": "Entertainment",                                                                                               
         r"(?i)JUICE": "Food",                                                                                                             
         r"(?i)UBER*EATS": "Food",                                                                                                         
         r"(?i)UBER": "Transportation",                                                                                                    
@@ -53,7 +63,7 @@ def category_map(description):
         r"(?i)DOORDASH": "Food",                                                                                                          
         r"(?i)Spotify": "Entertainment",                                                                                                  
         r"(?i)\w*Market": "Food",                                                                                                         
-        r"(?i)DHL": "Devliery",                                                                                                           
+        r"(?i)DHL": "Delivery",                                                                                                           
         r"(?i)Home": "Housing",                                                                                                           
         r"(?i)Landmark": "Entertainment",                                                                                                 
         r"(?i)Steam": "Entertainment",                                                                                                    
