@@ -1,9 +1,8 @@
-.main
+.new
 {
   height:150px;
   width: 250px;
-  background: #000;
-  font-size: 200px;
+  font-size: 50px;
   font-family: "Quicksand", sans-serif;
   color: #FFF;
   text-align: center;
@@ -15,5 +14,5 @@
 
 h1
 {
-  color: yellow;
+  color: black
 }
