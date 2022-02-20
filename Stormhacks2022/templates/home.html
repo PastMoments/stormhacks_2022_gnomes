@@ -2,18 +2,62 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap');
+    </style>
+
     <title>pyrite</title>
 
+    <link rel="stylesheet" href="../static/css/new.css">
 
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+
   </head>
 
   <body>
     <h1>Home Page</h1>
-    <form action = {{url_for('upload_file')}} method = "POST"
-       enctype = "multipart/form-data">
-       <input type = "file" name = "file" />
-       <input type = "submit"/>
-    </form>
+
+<div class="container">
+    <div class="droparea" ondrop="dropHandler(event);" ondragover="dragOverHandler(event);">Drop Here</div>
+    <p id="filename">No file selected</p>
+</div>
+
+    <script>
+function dropHandler(ev) {
+  ev.preventDefault();
+
+  if (ev.dataTransfer.items) {
+    for (var i = 0; i < ev.dataTransfer.items.length; i++) {
+      if (ev.dataTransfer.items[i].kind === 'file') {
+        var file = ev.dataTransfer.items[i].getAsFile();
+
+        var formData = new FormData();
+        formData.append("file", file.name);
+        document.getElementById("filename").innerHTML = file.name;
+        break;
+      }
+    }
+  } else {
+    for (var i = 0; i < ev.dataTransfer.files.length; i++) {
+      var formData = new FormData();
+      formData.append("file", ev.dataTransfer.files[i].name);
+      document.getElementById("filename").innerHTML = ev.dataTransfer.files[i].name;
+      break;
+    }
+  }
+}
+
+function dragOverHandler(ev) {
+  console.log('File(s) in drop zone');
+
+  // Prevent default behavior (Prevent file from being opened)
+  ev.preventDefault();
+}
+    </script>
+
+    <a href={{url_for('correct_categories')}}>Continue</a> <br>
+    <br>
+
+    <a href='/404'>I want to manually input data</a> <br>
+    <a href='/404'>How do I get my monthly bank statements?</a>
   </body>
 </html>
