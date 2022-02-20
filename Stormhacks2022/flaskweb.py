@@ -24,7 +24,9 @@ def upload_file():
     if request.method == 'POST':
         f = request.files['file']
         if f.filename:
+
             filename = os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(f.filename))
+            print(filename)
             f.save(filename)
 
             # column names since the bank statements don't include them by default
