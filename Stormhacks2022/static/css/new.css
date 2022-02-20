@@ -343,8 +343,8 @@ select {
 }
 
 .pie_graph {
-    width: 700px;
-    height:700px;
+    width: 850px;
+    height:850px;
 /*    float: left;
     overflow: auto;*/
     margin: auto;
@@ -425,14 +425,16 @@ select {
 
 .sidenav {
   height: 100%;
-  width: 250px;
+  width: 300px;
   position: fixed;
   z-index: 1;
   top: 0;
   left: 0;
-  background-color: #111;
+  background-color: #fff;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   overflow-x: hidden;
   padding-top: 20px;
+  padding: 2rem;
 }
 
 .dashboard {
@@ -461,6 +463,28 @@ select {
 .graph-grid {
   grid-row: 2;
   grid-column: 1;
+}
+
+.sidebar-item {
+  margin-top: 5rem;
+  margin-bottom: 1rem;
+
+}
+
+.sidebar-link {
+  display: flex;
+    padding-bottom: 20px;
+}
+
+.sidebar-link a {
+  font-size: 18px;
+  text-decoration: none;
+  color: #2E2E2E;
+  padding-left: 15px;
+}
+
+.sidebar-link a:hover {
+  color: #6F7BF7;
 }
 
 /* slider*/
@@ -574,3 +598,6 @@ padding: 2rem 2rem 0 2rem;
   from {opacity: .4}
   to {opacity: 1}
 }
+
+/* NAVIGATION*/
+

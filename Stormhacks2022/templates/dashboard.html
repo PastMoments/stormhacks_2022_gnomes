@@ -13,10 +13,13 @@
 
   <!-- Side bar -->
   <div class="sidenav">
+    <div class="branding">
+          <img src="{{ url_for('static', filename='pyrite_color_logo.png') }}">
+        </div>
     <h5 class="sidebar-item">General</h5>
     <div class="sidebar-link">
       <img src="{{ url_for('static', filename='house.png') }}">
-      <a href="#" class="w3-bar-item w3-button">Dashboard</a>
+      <a href="#" class="pyrite-purple-txt w3-bar-item w3-button">Dashboard</a>
     </div>
     <div class="sidebar-link">
       <img src="{{ url_for('static', filename='medical_file.png') }}">
@@ -85,6 +88,10 @@
             <div class="numbertext">3 / 3</div>
             <img src="{{ url_for('static', filename='cover-3.png') }}" style="width:100%">        
           </div>
+
+          <form class="export" style="text-align: right;" action="">
+          <input class="btn-purple" type="submit" value="Export">
+        </form>
 
           <!-- Next and previous buttons -->
           <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
