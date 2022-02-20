@@ -41,7 +41,7 @@ def upload_file():
 
 @app.route('/correction')
 def correct_categories():
-    if not session["transactions"]:
+    if not session.get("transactions"):
         return redirect(url_for('home'))
     return render_template('correction.html')
 
@@ -66,6 +66,11 @@ def dashboard():
 
         chogama = df.copy()
         chogama = chogama.fillna(value=0)
+
+        chogama['DEPOSITS'] = chogama['DEPOSITS'].astype(str)
+        chogama['WITHDRAWALS'] = chogama['WITHDRAWALS'].astype(str)
+        chogama['DEPOSITS'] = pd.to_numeric(chogama['DEPOSITS'].str.replace(',', ''))
+        chogama['WITHDRAWALS'] = pd.to_numeric(chogama['WITHDRAWALS'].str.replace(',', ''))
         pie_data = [2,10,4]
 
         # line graph related
@@ -74,8 +79,11 @@ def dashboard():
             dp_total = 0
 
             if chogama['TIMESTAMP'][i] == chogama['TIMESTAMP'][i + 1]:
-                wd_total = chogama['WITHDRAWALS'][i] + chogama['WITHDRAWALS'][i + 1]
-                dp_total = chogama['DEPOSITS'][i] + chogama['DEPOSITS'][i + 1]
+                try:
+                    wd_total = chogama['WITHDRAWALS'][i] + chogama['WITHDRAWALS'][i + 1]
+                    dp_total = chogama['DEPOSITS'][i] + chogama['DEPOSITS'][i + 1]
+                except:
+                    print(chogama['DEPOSITS'][i+1])
                 chogama.at[i + 1, 'WITHDRAWALS'] = wd_total
                 chogama.at[i + 1, 'DEPOSITS'] = dp_total
 
