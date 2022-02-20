@@ -33,7 +33,7 @@ def upload_file():
             df = pd.read_csv(filename, sep=',', header=None, names=colnames)
             add_categories(df)
 
-            session["transactions"] = df.to_json()
+            session["transactions"] = df.to_json(orient='table')
         else:
             session["transactions"] = ""
 
@@ -41,6 +41,8 @@ def upload_file():
 
 @app.route('/correction')
 def correct_categories():
+    if not session.get("transactions"):
+        return redirect(url_for('home'))
     return render_template('correction.html')
 
 # pre-process data for the withdrawal and deposit plots
@@ -59,11 +61,16 @@ def data_for_graph(df, col):  # col = df.columns[n]
 def dashboard():
     df_json = session.get("transactions")
     if df_json:
-        df = pd.read_json(df_json, dtype=True)
+        df = pd.read_json(df_json, orient='table')
         df = df.fillna(value=np.nan)
 
-        chogama = df
-        pie_data = [2,10,4]
+        chogama = df.copy()
+        chogama = chogama.fillna(value=0)
+
+        chogama['DEPOSITS'] = chogama['DEPOSITS'].astype(str)
+        chogama['WITHDRAWALS'] = chogama['WITHDRAWALS'].astype(str)
+        chogama['DEPOSITS'] = pd.to_numeric(chogama['DEPOSITS'].str.replace(',', ''))
+        chogama['WITHDRAWALS'] = pd.to_numeric(chogama['WITHDRAWALS'].str.replace(',', ''))
 
         # line graph related
         for i in range(len(df) - 1):
@@ -90,10 +97,23 @@ def dashboard():
         wd = data_for_graph(chogama, chogama.columns[2])
         dp = data_for_graph(chogama, chogama.columns[3])
 
-        return render_template('dashboard.html', pie_data=pie_data, x_axis=x_axis, balance=balance, withdrawal=wd,
+        chogama = chogama.reset_index()
+
+
+        pie_categories = {}
+        for index, row in chogama.iterrows():
+            if not pie_categories.get(row['CATEGORIES']):
+                pie_categories[row['CATEGORIES']] = 0
+            pie_categories[row['CATEGORIES']] += row['WITHDRAWALS']
+
+        pie_category, pie_data = zip(*pie_categories.items())
+        pie_data = map(round, pie_data)
+
+
+        return render_template('dashboard.html', pie_data=pie_data, pie_category=pie_category, x_axis=x_axis, balance=balance, withdrawal=wd,
                                deposit=dp, tables=[df.to_html(classes='data', na_rep='')], titles=df.columns.values)
     else:
-        return render_template('home.html')
+        return redirect(url_for('home'))
 
 
 def category_map(description):
@@ -106,7 +126,7 @@ def category_map(description):
         r"(?i)DOORDASH": "Food",
         r"(?i)Spotify": "Entertainment",
         r"(?i)\w*Market": "Food",
-        r"(?i)DHL": "Devliery",
+        r"(?i)DHL": "Delivery",
         r"(?i)Home": "Housing",
         r"(?i)Landmark": "Entertainment",
         r"(?i)Steam": "Entertainment",
