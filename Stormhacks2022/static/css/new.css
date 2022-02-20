@@ -206,3 +206,53 @@ a {
   z-index: 1;
 
 }
+
+
+.pie_graph {
+    width: 500px;
+    height: 800px;
+    float: left;
+    overflow: auto;
+
+
+}
+
+.div_card {
+    width = 500px;
+    height = 800px;
+}
+
+.line_graph {
+
+    width: 500px;
+    height: 800px;
+    float: left;
+    overflow: auto;
+
+}
+
+#pie {
+    display: block;
+    width: 500px;
+    height: 500px;
+}
+#line_graph1 {
+
+    display: block;
+    float: right;
+    width: 500px;
+    height: 500px;
+
+}
+#line_graph2 {
+
+    display: block;
+    width: 500px;
+    height: 500px;
+}
+#line_graph3 {
+
+    display: block;
+    width: 500px;
+    height: 500px;
+}

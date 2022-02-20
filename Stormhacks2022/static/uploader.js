@@ -22,3 +22,4 @@ var dropHandler = function(evt){
 
     var promise = $.ajax(req);
 };
+

@@ -11,83 +11,62 @@
 
   <body>
     <h1>Dashboard</h1>
-    <canvas id="pie" width="100px" height="100px"></canvas>
-    <script>
-    const data = {
-        labels: ['shabaloma','shea','aigoooo'],
-        datasets: [{
-            label: 'My First Dataset',
-            data: [{{pie_data|join(', ')}}],
-            backgroundColor: [
-              'rgb(255, 99, 132)',
-              'rgb(54, 162, 235)',
-              'rgb(255, 205, 86)'
-            ],
-            hoverOffset: 4
-        }]
-    };
-    var pie = new Chart("pie", {
-        type: "doughnut",
-        data: data,
-        options: {}
-    });
-    </script>
-    <canvas id = "line_graph1" width="100px" height="100px"></canvas>
-    <script>
-    const data1 = {
-        labels: {{x_axis|tojson}},
-        datasets: [{
-            label: 'Overall Balance',
-            data: [{{balance|join(', ')}}],
-            borderColor: 'rgb(255, 99, 132)',
-            tension: 0.4,
-        }],
-    };
-    var line_chart = new Chart("line_graph1", {
-      type: "line",
-      data: data1,
-      options: {}
-    });
-    </script>
-    <canvas id = "line_graph2" width="100px" height="100px"></canvas>
-    <script>
-    const data2 = {
-        labels: {{x_axis|tojson}},
-        datasets: [{
-            label: 'Overall Withdrawal',
-            data: [{{withdrawal|join(', ')}}],
-            borderColor: 'rgb(255, 99, 132)',
-            tension: 0.4,
-        }],
-    };
-    var line_chart = new Chart("line_graph2", {
-      type: "line",
-      data: data2,
-      options: {}
-    });
-    </script>
-    <canvas id = "line_graph3" width="100px" height="100px"></canvas>
-    <script>
-    const data3 = {
-        labels: {{x_axis|tojson}},
-        datasets: [{
-            label: 'Overall Deposit',
-            data: [{{deposit|join(', ')}}],
-            borderColor: 'rgb(255, 99, 132)',
-            tension: 0.4,
-        }],
-    };
-    var line_chart = new Chart("line_graph3", {
-      type: "line",
-      data: data3,
-      options: {}
-    });
-    </script>
+    <div class="pie_graph"> <canvas id="pie" width="100px" height="100px"></canvas></div>
+    <div class="fin_card"> </div>
+    <div class="line_graph"> <canvas id = "line_graph1" width="100px" height="100px"></canvas></div>
+    <div class="line_graph"> <canvas id = "line_graph2" width="100px" height="100px"></canvas></div>
+    <div class="line_graph"> <canvas id = "line_graph3" width="100px" height="100px"></canvas></div>
 
-{% for table in tables %}
-            {{titles[loop.index]}}
-            {{ table|safe }}
-{% endfor %}
 
+    <script>
+
+
+const data = {
+    labels: {{pie_category|tojson}},
+    datasets: [{
+        label: 'My First Dataset',
+        data: [{{pie_data|join(', ')}}],
+        backgroundColor: [
+            'rgb(255, 99, 132)',
+            'rgb(54, 162, 235)',
+            'rgb(255, 205, 86)'
+        ],
+        hoverOffset: 4
+    }]
+};
+
+
+const data1 = {
+    labels: {{x_axis|tojson}},
+    datasets: [{
+        label: 'Overall Balance',
+        data: [{{balance|join(', ')}}],
+        borderColor: 'rgb(255, 99, 132)',
+        tension: 0.4,
+    }],
+};
+
+
+const data2 = {
+    labels: {{x_axis|tojson}},
+    datasets: [{
+        label: 'Overall Withdrawal',
+        data: [{{withdrawal|join(', ')}}],
+        borderColor: 'rgb(255, 99, 132)',
+        tension: 0.4,
+    }],
+};
+
+const data3 = {
+    labels: {{x_axis|tojson}},
+    datasets: [{
+        label: 'Overall Deposit',
+        data: [{{deposit|join(', ')}}],
+        borderColor: 'rgb(255, 99, 132)',
+        tension: 0.4,
+    }],
+};
+    </script>
+    <script src="{{url_for('static', filename='charts.js')}}"> </script>
   </body>
 </html>
