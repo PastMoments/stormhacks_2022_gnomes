@@ -136,6 +136,13 @@ a {
   width: 100%;
 }
 
+
+.fake-left-col {
+  padding: 2rem;
+  position: absolute;
+
+}
+
 .left-col {
   padding: 2rem;
 }
@@ -199,6 +206,15 @@ a {
   padding: 5px;
 }
 
+.fake-next-btn {
+  position: fixed;
+  bottom: -60px;
+  right: 50px;
+  width: 10%;
+  height: 15%;
+  z-index: 1;
+
+}
 .next-btn {
   position: fixed;
   bottom: 0px;

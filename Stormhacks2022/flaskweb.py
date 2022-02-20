@@ -165,6 +165,7 @@ def category_map(description):
         r"(?i)Happymeat": "Income",
         r"(?i)Interest": "Income",
         r"(?i)WPS": "Income",
+        r"(?i)Rent": "Housing",
 
     }
 

@@ -20,16 +20,20 @@
   <body class = "pyrite-light-purple-bgd">
 
 
+      <div class="fake-left-col">
         <div class="branding">
           <img src="{{ url_for('static', filename='pyrite_white_logo.png') }}">
         </div>
+      </div>
 <!--
         <div class="heading-area">
           <h2 class="copy-text">Let's get started</h2>
           <h4 class="copy-text">Easy to read financial reports <br> are one click away.</h4>
         </div> -->
         <div class="background">
-          <h3>We need some more <br> information on these transactions</h3>
+            <div  style="padding-top: 50px;">
+            <h3>We need some more <br> information on these transactions</h3>
+            </div>
           </div>
 
 
@@ -38,9 +42,9 @@
 {% endfor %}
 
 
+</div>
 
-      </div>
-        <form class="next-btn" action="{{url_for('dashboard')}}">
+        <form class="fake-next-btn" action="{{url_for('dashboard')}}">
           <input class="btn-purple" type="submit" value="Next">
         </form>
 
