@@ -227,14 +227,21 @@ a {
   height: 560px;
 }
 
-.labels th{
+tr {
+
+  font-family: 'Quicksand', sans-serif;
+  font-size: 22;
+  font-weight: 600;
+text-align: right
+}
+th{
   font-family: 'Quicksand', sans-serif;
   font-size: 22;
   font-weight: 600;
 
 }
 
-.labels td{
+td{
   font-family: 'Quicksand', sans-serif;
   font-size: 22;
   font-weight: 400;
@@ -248,6 +255,21 @@ a {
    font-size: 14px;
    border: none;
  }
+
+.drop {
+    overflow:hidden;
+    background: #fff;
+}
+
+select {
+    border:0;
+    border-radius: 5px;
+    background:transparent;
+    height:32px;
+    width: 128px;
+    border:1px solid #e2e8f0;
+    -webkit-appearance: none;
+}
 
  /* The container <div> - needed to position the dropdown content */
  .dropdown {
@@ -293,8 +315,8 @@ a {
 }
 
 .div_card {
-    width = 500px;
-    height = 500px;
+    width: 500px;
+    height: 500px;
 }
 
 .line_graph {

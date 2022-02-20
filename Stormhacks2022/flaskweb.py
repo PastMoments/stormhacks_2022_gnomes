@@ -43,7 +43,36 @@ def upload_file():
 def correct_categories():
     if not session.get("transactions"):
         return redirect(url_for('home'))
-    return render_template('correction.html')
+
+    df_json = session.get("transactions")
+    if df_json:
+        df = pd.read_json(df_json, orient='table')
+        df = df.fillna(value=np.nan)
+
+        others = df.copy()
+        others = others[others["CATEGORIES"] == "Other"]
+
+
+        
+        dropdown ='<div class="drop"> \
+        <form action="404" method="get"><select name="dropselect"> \
+        <option value="Other">Other</option> \
+        <option value="Food">Food</option> \
+        <option value="Entertainment">Entertainment</option> \
+        <option value="Health">Health</option> \
+        <option value="Housing">Housing</option> \
+        <option value="Delivery">Delivery</option> \
+        <option value="Income">Income</option> \
+</select> \
+</form> \
+</div>'
+
+        others = others.assign(CATEGORIES=dropdown)
+
+    htmlothers = [others.to_html(classes='table', na_rep='', border=0, index=False, escape=False,)]
+    print(htmlothers)
+    print(others.columns.values)
+    return render_template('correction.html', tables=htmlothers, titles=others.columns.values)
 
 # pre-process data for the withdrawal and deposit plots
 def data_for_graph(df, col):  # col = df.columns[n]
@@ -111,7 +140,7 @@ def dashboard():
 
 
         return render_template('dashboard.html', pie_data=pie_data, pie_category=pie_category, x_axis=x_axis, balance=balance, withdrawal=wd,
-                               deposit=dp, tables=[df.to_html(classes='data', na_rep='')], titles=df.columns.values)
+                               deposit=dp)
     else:
         return redirect(url_for('home'))
 
