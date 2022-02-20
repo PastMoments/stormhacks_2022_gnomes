@@ -2,29 +2,30 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title></title>
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap');
     #myDIV {
       font-family: Quicksand;
     }
     </style>
+
+    <title>pyrite</title>
+
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+
   </head>
+
   <body>
     <div id="myDIV">
       <h1>Welcome</h1>
       <p style="font-size:30px">hello</p>
     </div>
-    <form action = "http://localhost:5000/uploader" method = "POST"
+    <h1>Home Page</h1>
+    <form action = {{url_for('upload_file')}} method = "POST"
        enctype = "multipart/form-data">
        <input type = "file" name = "file" />
        <input type = "submit"/>
     </form>
-
-{% for table in tables %}
-            {{titles[loop.index]}}
-            {{ table|safe }}
-{% endfor %}
-
   </body>
 </html>

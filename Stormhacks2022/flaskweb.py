@@ -9,18 +9,13 @@ import numpy as np
 UPLOAD_FOLDER = './uploads'
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-app.secret_key = b'_53Ff3"F4QFdz\n\xec]/'
 app.config['SESSION_TYPE'] = 'filesystem'
+app.secret_key = b'_53Ff3"F4QFdz\n\xec]/'
+var = None
 
 @app.route("/")
 def home():
-    df_json = session.get("transactions")
-    if df_json:
-        df = pd.read_json(df_json, dtype=True)
-        df = df.fillna(value=np.nan)
-        return render_template('home.html', tables=[df.to_html(classes='data', na_rep='')], titles=df.columns.values)
-    else:
-        return render_template('home.html')
+    return render_template('home.html')
 
 @app.route('/uploader', methods = ['GET', 'POST'])
 def upload_file():
@@ -38,7 +33,25 @@ def upload_file():
             session["transactions"] = df.to_json()
         else:
             session["transactions"] = ""
-    return redirect(url_for('home'))
+
+    return redirect(url_for('correct_categories'))
+
+@app.route('/correction')
+def correct_categories():
+    return render_template('correction.html')
+
+@app.route('/dashboard')
+def dashboard():
+    df_json = session.get("transactions")
+    if df_json:
+        df = pd.read_json(df_json, dtype=True)
+        df = df.fillna(value=np.nan)
+
+        pie_data = [2,10,4]
+        return render_template('dashboard.html', pie_data=pie_data, tables=[df.to_html(classes='data', na_rep='')], titles=df.columns.values)
+    else:
+        return render_template('home.html')
+
 
 def category_map(description):
     description_category_map = {
