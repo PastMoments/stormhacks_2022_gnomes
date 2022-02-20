@@ -71,7 +71,7 @@ def dashboard():
         # dp = data_for_graph(df, df.columns[3])
         for i in range(len(df)):
             x_axis.append(df.loc[i, df.columns[0]])
-            y_axis.append(df.loc[i, '1.1.29'])
+            y_axis.append(df.loc[i, df.columns[4]])
 
         return render_template('dashboard.html', pie_data=pie_data, x_axis=x_axis, y_axis=y_axis, tables=[df.to_html(classes='data', na_rep='')], titles=df.columns.values)
     else:
