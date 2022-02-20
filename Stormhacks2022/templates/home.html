@@ -30,27 +30,31 @@
 
         <div class="heading-area">
           <h2 class="copy-text">Let's get started</h2>
-          <h3 class="copy-text">Easy to read financial reports.</h3>
+          <h4 class="copy-text">Easy to read financial reports.</h4>
         </div>
 
       </div>
 
-      <div class="right-col pyrite-light-purple-bgd">
+      <div id="background" class="right-col pyrite-light-purple-bgd">
         <h3>Start by uploading your <br> monthly bank statements</h3>
-        <div class="droparea" ondrop="dropHandler(event);" ondragover="dragHandler(event);">
+        <div class="upload-box">
+          <h4 class="copy-text">File upload</h4>
+           <div class="droparea" ondrop="dropHandler(event);" ondragover="dragOverHandler(event);">
           <img src="{{ url_for('static', filename='upload.png') }}">
-          <p>Drag and drop or browse your files</p>
+          <p class="copy-text">Drag and drop or browse your files</p>
         </div>
-        <p id="filename">No file selected</p>
-        <a href={{url_for('upload_file')}}>Continue</a> <br>
-        <br>
-
-        <a href='/404'>I want to manually input data</a> <br>
+        <p class="file-name" id="filename">No file selected</p>
+        </div>
+      
+        <a href='/404'>I want to manually input data</a>
         <a href='/404'>How do I get my monthly bank statements?</a>
 
+        <!-- <a href={{url_for('correct_categories')}}>Continue</a>  -->
 
       </div>
-
+        <form class="next-btn" action="{{url_for('correct_categories')}}">
+          <input class="btn-purple" type="submit" value="Next">
+        </form>
     </section>
 
 </body>
