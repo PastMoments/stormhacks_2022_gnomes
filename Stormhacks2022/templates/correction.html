@@ -2,13 +2,99 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap');
+    </style>
+
     <title>Pyrite - Modern Financial Solutions</title>
     <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='pyrite_favicon.png') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/new.css') }}">
-  </head>
 
-  <body>
-    <h1>Correct your thing</h1>
-    <a href={{url_for('dashboard')}}> Next </a>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/new.css') }}">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="{{ url_for('static', filename='uploader.js') }}"></script>
+
+
+  </head>
+  <!--     <h1>Correction Page</h1> -->
+  <body class = "pyrite-light-purple-bgd">
+
+
+        <div class="branding">
+          <img src="{{ url_for('static', filename='pyrite_white_logo.png') }}">
+        </div>
+<!--
+        <div class="heading-area">
+          <h2 class="copy-text">Let's get started</h2>
+          <h4 class="copy-text">Easy to read financial reports <br> are one click away.</h4>
+        </div> -->
+        <div class="background">
+          <h3>We need some more <br> information on these transactions</h3>
+          <div class="dropdown">
+            <button class="dropbtn">Dropdown</button>
+            <div class="dropdown-content">
+              <h4>hello</h4>
+              <h4>hello2</h4>
+            </div>
+          </div>
+          <table class = "table">
+            <tr class = "labels">
+              <th>Date</th>
+              <th>Transaction Name</th>
+              <th>Amount</th>
+              <th>Category</th>
+            </tr>
+            <tr class = "labels">
+              <td>Alfreds Futterkiste</td>
+              <td>Maria Anders</td>
+              <td>Germany</td>
+              <td>Germany</td>
+            </tr>
+            <tr class = "labels">
+              <td>Centro comercial Moctezuma</td>
+              <td>Francisco Chang</td>
+              <td>Mexico</td>
+              <td>Germany</td>
+            </tr>
+            <div class="dropdown">
+              <button class="dropbtn">Dropdown</button>
+              <div class="dropdown-content">
+                <h4>hello</h4>
+                <h4>hello2</h4>
+              </div>
+            </div>
+            <div class="dropdown">
+              <button class="dropbtn">Dropdown</button>
+              <div class="dropdown-content">
+                <h4>hello</h4>
+                <h4>hello2</h4>
+              </div>
+            </div>
+            <div class="dropdown">
+              <button class="dropbtn">Dropdown</button>
+              <div class="dropdown-content">
+                <h4>hello</h4>
+                <h4>hello2</h4>
+              </div>
+            </div>
+          </table>
+          <!-- <div class="table">
+            <input type="checkbox" id="date1" name="date1" value = "Date">
+            <div class="labels">
+              <h4>Date</h4>
+              <h4>Transaction Name</h4>
+            </div>
+          </div> -->
+        </div>
+
+
+
+
+
+      </div>
+        <form class="next-btn" action="{{url_for('dashboard')}}">
+          <input class="btn-purple" type="submit" value="Next">
+        </form>
+
   </body>
 </html>
