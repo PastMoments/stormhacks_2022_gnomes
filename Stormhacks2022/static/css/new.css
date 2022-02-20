@@ -210,7 +210,7 @@ a {
 
 .pie_graph {
     width: 500px;
-    height: 800px;
+    height:500px;
     float: left;
     overflow: auto;
 
@@ -219,13 +219,12 @@ a {
 
 .div_card {
     width = 500px;
-    height = 800px;
+    height = 500px;
 }
 
 .line_graph {
-
     width: 500px;
-    height: 800px;
+    height: 500px;
     float: left;
     overflow: auto;
 

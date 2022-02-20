@@ -1,5 +1,3 @@
-
-
 console.log("charts loaded");
 
 var pie = new Chart("pie", {
@@ -14,7 +12,7 @@ var pie = new Chart("pie", {
             fontStyle: 'bold',
             fontSize: 20
         },
-        
+
 
         tooltips: {
             callbacks: {
@@ -49,6 +47,12 @@ var line_chart = new Chart("line_graph1", {
     options: {
         responsive: true,
         maintainAspectRatio: true,
+        title: {
+            display: true,
+            text: 'Your Account Balance',
+            fontStyle: 'bold',
+            fontSize: 20
+        },
     }
 });
 
@@ -58,6 +62,12 @@ var line_chart = new Chart("line_graph2", {
     options: {
         responsive: true,
         maintainAspectRatio: true,
+        title: {
+            display: true,
+            text: 'Your Withdrawals',
+            fontStyle: 'bold',
+            fontSize: 20
+        },
     }
 });
 
@@ -67,5 +77,11 @@ var line_chart = new Chart("line_graph3", {
     options: {
         responsive: true,
         maintainAspectRatio: true,
+        title: {
+            display: true,
+            text: 'Your Deposits',
+            fontStyle: 'bold',
+            fontSize: 20
+        },
     }
 });
