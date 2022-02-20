@@ -79,11 +79,8 @@ def dashboard():
             dp_total = 0
 
             if chogama['TIMESTAMP'][i] == chogama['TIMESTAMP'][i + 1]:
-                try:
-                    wd_total = chogama['WITHDRAWALS'][i] + chogama['WITHDRAWALS'][i + 1]
-                    dp_total = chogama['DEPOSITS'][i] + chogama['DEPOSITS'][i + 1]
-                except:
-                    print(chogama['DEPOSITS'][i+1])
+                wd_total = chogama['WITHDRAWALS'][i] + chogama['WITHDRAWALS'][i + 1]
+                dp_total = chogama['DEPOSITS'][i] + chogama['DEPOSITS'][i + 1]
                 chogama.at[i + 1, 'WITHDRAWALS'] = wd_total
                 chogama.at[i + 1, 'DEPOSITS'] = dp_total
 
