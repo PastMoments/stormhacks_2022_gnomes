@@ -40,6 +40,22 @@ def upload_file():
 def correct_categories():
     return render_template('correction.html')
 
+# pre-process data for the withdrawal and deposit plots
+def data_for_graph(df, col):    # col = df.columns[n]
+    data = {
+        "Timestamp": df[df.columns[0]],
+        col: []
+    }
+    sum = 0
+
+    for i in range(len(df)):
+        df[col] = df[col].fillna(0)
+        sum += df.loc[i, col]
+        data[col].append(sum)
+
+    result = pd.DataFrame(data)
+    return result
+
 @app.route('/dashboard')
 def dashboard():
     df_json = session.get("transactions")
@@ -48,7 +64,16 @@ def dashboard():
         df = df.fillna(value=np.nan)
 
         pie_data = [2,10,4]
-        return render_template('dashboard.html', pie_data=pie_data, tables=[df.to_html(classes='data', na_rep='')], titles=df.columns.values)
+
+        x_axis = []
+        y_axis = []
+        # wd = data_for_graph(df, df.columns[2])
+        # dp = data_for_graph(df, df.columns[3])
+        for i in range(len(df)):
+            x_axis.append(df.loc[i, df.columns[0]])
+            y_axis.append(df.loc[i, '1.1.29'])
+
+        return render_template('dashboard.html', pie_data=pie_data, x_axis=x_axis, y_axis=y_axis, tables=[df.to_html(classes='data', na_rep='')], titles=df.columns.values)
     else:
         return render_template('home.html')
 
