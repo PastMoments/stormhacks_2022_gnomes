@@ -56,6 +56,9 @@ h1
   background-color: #E3E6FF;
 }
 
+.grey-bgd {
+  background-color: #F9F9FF;
+}
 
 .copy-text {
   color: 2E2E2E;
@@ -71,6 +74,7 @@ h1,
 h2,
 h3,
 h4,
+h5,
 p,
 a {
   font-family: 'Quicksand', sans-serif;
@@ -93,10 +97,20 @@ h4 {
   font-size: 23px;
 }
 
+h5 {
+  font-weight: 200;
+  font-size: 14px;
+  color: #808080;
+}
+
 a {
   font-weight: 500;
   font-size: 13px;
   color: #6F7BF7;
+}
+
+p {
+  font-weight: 200;
 }
 
 #background {
@@ -280,27 +294,66 @@ a {
  /* Change the background color of the dropdown button when the dropdown content is shown */
  .dropdown:hover .dropbtn {background-color: #FFFFFF;}
 
+.pie-bgd {
+
+  grid-row: 1;
+    grid-column: 1 / span 2;
+
+    background-color: white;
+  border-radius: 10px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
+
+}
 
 .pie_graph {
-    width: 500px;
-    height:500px;
-    float: left;
-    overflow: auto;
-
-
+    width: 700px;
+    height:700px;
+/*    float: left;
+    overflow: auto;*/
+    margin: auto;
+    padding: 3rem;
 }
 
 .div_card {
     width = 500px;
     height = 500px;
 }
-
+/*
 .line_graph {
     width: 500px;
     height: 500px;
     float: left;
     overflow: auto;
+  grid-column: 1 /  span 2;
+}*/
 
+.line_graph {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
+  padding: 2rem;
+}
+
+.line_graph1 {
+  margin: 2rem 0;
+  width: 500px;
+  height: 500px;
+  grid-column: 1;
+  grid-row: 2;
+}
+.line_graph2 {
+  margin: 2rem 0;
+  width: 500px;
+  height: 500px;
+  grid-column: 2;
+  grid-row: 2;
+}
+.line_graph3 {
+  margin: 2rem 0;
+  width: 500px;
+  height: 500px;
+  grid-column: 3;
+  grid-row: 2;
 }
 
 #pie {
@@ -308,23 +361,179 @@ a {
     width: 500px;
     height: 500px;
 }
-#line_graph1 {
+/*#line_graph1 {
+  display: block;
+  float: right;
+  width: 500px;
+  height: 500px;
 
-    display: block;
-    float: right;
-    width: 500px;
-    height: 500px;
-
-}
-#line_graph2 {
-
+  grid-column: 1 /  span 2;
+}*/
+/*#line_graph2 {
     display: block;
     width: 500px;
     height: 500px;
 }
 #line_graph3 {
-
     display: block;
     width: 500px;
     height: 500px;
+}*/
+
+/* Dashboard*/
+
+.dashboard-header {
+  margin-top: 4rem;
+}
+
+.sidenav {
+  height: 100%;
+  width: 250px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  padding-top: 20px;
+}
+
+.dashboard {
+  margin-left: 50px; /* Same as the width of the sidenav */
+  font-size: 20px; /* Increased text to enable scrolling */
+  padding: 0px 10px;
+
+/*  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-template-rows: 1fr 3fr;*/
+}
+
+.graph-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  grid-gap: 2rem;
+  margin-top: 3rem;
+}
+
+.dashboard h1 {
+  grid-row: 1;
+  grid-column: 1;
+}
+
+.graph-grid {
+  grid-row: 2;
+  grid-column: 1;
+}
+
+/* slider*/
+
+* {box-sizing:border-box}
+
+/* Slideshow container */
+
+.fin-card h4{
+  padding-top: 1rem;
+  padding-left: 2rem;
+}
+
+.fin-card {
+  width: 500px;
+background-color: white;
+  border-radius: 10px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
+    padding-bottom: 2rem;
+}
+
+.slideshow-container {
+  position: relative;
+  margin: auto;
+padding: 2rem 2rem 0 2rem;
+}
+
+/* Hide the images by default */
+.mySlides {
+  display: none;
+}
+
+/* Next & previous buttons */
+.prev, .next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  margin-top: -22px;
+  padding: 16px;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+}
+
+/* Position the "next button" to the right */
+.next {
+  right: 31px;
+  border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover, .next:hover {
+  background-color: rgba(0,0,0,0.8);
+}
+
+/* Caption text */
+.text {
+  color: #f2f2f2;
+  font-size: 15px;
+  padding: 8px 12px;
+  position: absolute;
+  bottom: 8px;
+  width: 100%;
+  text-align: center;
+}
+
+/* Number text (1/3 etc) */
+.numbertext {
+  color: #f2f2f2;
+  font-size: 12px;
+  padding: 8px 12px;
+  position: absolute;
+  top: 0;
+}
+
+/* The dots/bullets/indicators */
+
+.dot {
+  cursor: pointer;
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+}
+
+.active, .dot:hover {
+  background-color: #717171;
+}
+
+/* Fading animation */
+.fade {
+  -webkit-animation-name: fade;
+  -webkit-animation-duration: 1.5s;
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+
+@-webkit-keyframes fade {
+  from {opacity: .4}
+  to {opacity: 1}
+}
+
+@keyframes fade {
+  from {opacity: .4}
+  to {opacity: 1}
 }

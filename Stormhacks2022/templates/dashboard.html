@@ -1,72 +1,202 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-   <title>Pyrite - Modern Financial Solutions</title>
-    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='pyrite_favicon.png') }}">
+<head>
+  <meta charset="utf-8">
+  <title>Pyrite - Modern Financial Solutions</title>
+  <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='pyrite_favicon.png') }}">
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"> </script>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/new.css') }}">
-  </head>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"> </script>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/new.css') }}">
+</head>
 
-  <body>
-    <h1>Dashboard</h1>
-    <div class="pie_graph"> <canvas id="pie" width="100px" height="100px"></canvas></div>
-    <div class="fin_card"> </div>
-    <div class="line_graph"> <canvas id = "line_graph1" width="100px" height="100px"></canvas></div>
-    <div class="line_graph"> <canvas id = "line_graph2" width="100px" height="100px"></canvas></div>
-    <div class="line_graph"> <canvas id = "line_graph3" width="100px" height="100px"></canvas></div>
+<body class="grey-bgd">
+
+  <!-- Side bar -->
+  <div class="sidenav">
+    <h5 class="sidebar-item">General</h5>
+    <div class="sidebar-link">
+      <img src="{{ url_for('static', filename='house.png') }}">
+      <a href="#" class="w3-bar-item w3-button">Dashboard</a>
+    </div>
+    <div class="sidebar-link">
+      <img src="{{ url_for('static', filename='medical_file.png') }}">
+      <a href="#" class="w3-bar-item w3-button">Stored Statements</a>
+    </div>
+    <div class="sidebar-link">
+      <img src="{{ url_for('static', filename='bank.png') }}">
+      <a href="#" class="w3-bar-item w3-button">Accounts</a>
+    </div>
+    <div class="sidebar-link">
+      <img src="{{ url_for('static', filename='share_file.png') }}">
+      <a href="#" class="w3-bar-item w3-button">Shared Income</a>
+    </div>
+    <div class="sidebar-link">
+      <img src="{{ url_for('static', filename='archive.png') }}">
+      <a href="#" class="w3-bar-item w3-button">Archives</a>
+    </div>
+
+    <h5 class="sidebar-item">Tools</h5>
+    <div class="sidebar-link">
+      <img src="{{ url_for('static', filename='help.png') }}">
+      <a href="#" class="w3-bar-item w3-button">Help & Support</a>
+    </div>
+    <div class="sidebar-link">
+      <img src="{{ url_for('static', filename='setting.png') }}">
+      <a href="#" class="w3-bar-item w3-button">Settings</a>
+    </div>
+    <div class="sidebar-link">
+      <img src="{{ url_for('static', filename='logout.png') }}">
+      <a href="#" class="w3-bar-item w3-button">Logout</a>
+    </div>
+  </div>
+
+  <section class="dashboard">
+    <div class="dashboard-header">
+          <h3>Funports</h3>
+    <p>Financial “fun” reports. Making your finance fun.</p>
+    </div>
+    <div class="graph-grid">
+      <div class="pie-bgd">
+         <div class="pie_graph"> 
+        <canvas id="pie" width="100px" height="100px"></canvas>
+      </div>  
+      </div>
+      <div class="fin-card"> 
+        <h4>Fincards</h4>
+        <div class="slideshow-container">
+
+          <!-- Full-width images with number and caption text -->
+          <div class="mySlides fade">
+            <div class="numbertext">1 / 3</div>
+            <img src="{{ url_for('static', filename='cover.png') }}" style="width:100%">
+          </div>
+
+          <div class="mySlides fade">
+            <div class="numbertext">2 / 3</div>
+            <img src="{{ url_for('static', filename='cover-1.png') }}" style="width:100%">           
+          </div>
+
+          <div class="mySlides fade">
+            <div class="numbertext">3 / 3</div>
+            <img src="{{ url_for('static', filename='cover-2.png') }}" style="width:100%">           
+          </div>
+
+          <div class="mySlides fade">
+            <div class="numbertext">3 / 3</div>
+            <img src="{{ url_for('static', filename='cover-3.png') }}" style="width:100%">        
+          </div>
+
+          <form class="next-btn" action="{{url_for('correct_categories')}}">
+          <input class="btn-purple" type="submit" value="Next">
+        </form>
+
+          <!-- Next and previous buttons -->
+          <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+          <a class="next" onclick="plusSlides(1)">&#10095;</a>
+        </div>
+        <br>
+
+        <!-- The dots/circles -->
+        <div class="dot-style" style="text-align:center">
+          <span class="dot" onclick="currentSlide(1)"></span>
+          <span class="dot" onclick="currentSlide(2)"></span>
+          <span class="dot" onclick="currentSlide(3)"></span>
+          <span class="dot" onclick="currentSlide(4)"></span>
+        </div>
+      </div>
+
+      <div class="line_graph line_graph1"> 
+        <canvas id = "line_graph1" width="100px" height="100px"></canvas>
+      </div>
+      <div class="line_graph line_graph2">
+        <canvas id = "line_graph2" width="100px" height="100px"></canvas>
+      </div>
+      <div class="line_graph line_graph3">
+        <canvas id = "line_graph3" width="100px" height="100px"></canvas>
+      </div>
+
+    </div>
+
+  </section>
+
+  <script>
+
+    var slideIndex = 1;
+    showSlides(slideIndex);
+
+// Next/previous controls
+function plusSlides(n) {
+  showSlides(slideIndex += n);
+}
+
+// Thumbnail image controls
+function currentSlide(n) {
+  showSlides(slideIndex = n);
+}
+
+function showSlides(n) {
+  var i;
+  var slides = document.getElementsByClassName("mySlides");
+  var dots = document.getElementsByClassName("dot");
+  if (n > slides.length) {slideIndex = 1}
+    if (n < 1) {slideIndex = slides.length}
+      for (i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";
+      }
+      for (i = 0; i < dots.length; i++) {
+        dots[i].className = dots[i].className.replace(" active", "");
+      }
+      slides[slideIndex-1].style.display = "block";
+      dots[slideIndex-1].className += " active";
+    }
 
 
-    <script>
-
-
-const data = {
-    labels: {{pie_category|tojson}},
-    datasets: [{
+    const data = {
+      labels: {{pie_category|tojson}},
+      datasets: [{
         label: 'My First Dataset',
         data: [{{pie_data|join(', ')}}],
         backgroundColor: [
-            'rgb(255, 99, 132)',
-            'rgb(54, 162, 235)',
-            'rgb(255, 205, 86)'
+        'rgb(255, 99, 132)',
+        'rgb(54, 162, 235)',
+        'rgb(255, 205, 86)'
         ],
         hoverOffset: 4
-    }]
-};
+      }]
+    };
 
 
-const data1 = {
-    labels: {{x_axis|tojson}},
-    datasets: [{
+    const data1 = {
+      labels: {{x_axis|tojson}},
+      datasets: [{
         label: 'Overall Balance',
         data: [{{balance|join(', ')}}],
         borderColor: 'rgb(255, 99, 132)',
         tension: 0.4,
-    }],
-};
+      }],
+    };
 
 
-const data2 = {
-    labels: {{x_axis|tojson}},
-    datasets: [{
+    const data2 = {
+      labels: {{x_axis|tojson}},
+      datasets: [{
         label: 'Overall Withdrawal',
         data: [{{withdrawal|join(', ')}}],
         borderColor: 'rgb(255, 99, 132)',
         tension: 0.4,
-    }],
-};
+      }],
+    };
 
-const data3 = {
-    labels: {{x_axis|tojson}},
-    datasets: [{
+    const data3 = {
+      labels: {{x_axis|tojson}},
+      datasets: [{
         label: 'Overall Deposit',
         data: [{{deposit|join(', ')}}],
         borderColor: 'rgb(255, 99, 132)',
         tension: 0.4,
-    }],
-};
-    </script>
-    <script src="{{url_for('static', filename='charts.js')}}"> </script>
-  </body>
+      }],
+    };
+  </script>
+  <script src="{{url_for('static', filename='charts.js')}}"> </script>
+</body>
 </html>
