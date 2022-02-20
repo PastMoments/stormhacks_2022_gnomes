@@ -43,19 +43,15 @@ def correct_categories():
     return render_template('correction.html')
 
 # pre-process data for the withdrawal and deposit plots
-def data_for_graph(df, col):    # col = df.columns[n]
-    data = {
-        "Timestamp": df[df.columns[0]],
-        col: []
-    }
+def data_for_graph(df, col):  # col = df.columns[n]
     sum = 0
+    result = []
 
     for i in range(len(df)):
         df[col] = df[col].fillna(0)
         sum += df.loc[i, col]
-        data[col].append(sum)
+        result.append(sum)
 
-    result = pd.DataFrame(data)
     return result
 
 @app.route('/dashboard')
@@ -65,17 +61,36 @@ def dashboard():
         df = pd.read_json(df_json, dtype=True)
         df = df.fillna(value=np.nan)
 
+        chogama = df
         pie_data = [2,10,4]
 
-        x_axis = []
-        y_axis = []
-        # wd = data_for_graph(df, df.columns[2])
-        # dp = data_for_graph(df, df.columns[3])
-        for i in range(len(df)):
-            x_axis.append((df.loc[i, df.columns[0]]).strftime('%D'))
-            y_axis.append(df.loc[i, df.columns[4]])
+        # line graph related
+        for i in range(len(df) - 1):
+            wd_total = 0
+            dp_total = 0
 
-        return render_template('dashboard.html', pie_data=pie_data, x_axis=x_axis, y_axis=y_axis, tables=[df.to_html(classes='data', na_rep='')], titles=df.columns.values)
+            if chogama['TIMESTAMP'][i] == chogama['TIMESTAMP'][i + 1]:
+                wd_total = chogama['WITHDRAWALS'][i] + chogama['WITHDRAWALS'][i + 1]
+                dp_total = chogama['DEPOSITS'][i] + chogama['DEPOSITS'][i + 1]
+                chogama.at[i + 1, 'WITHDRAWALS'] = wd_total
+                chogama.at[i + 1, 'DEPOSITS'] = dp_total
+
+        chogama.drop_duplicates(subset=['TIMESTAMP'], keep='last', inplace=True)
+        chogama = chogama.reset_index(drop=True)
+
+        x_axis = []
+        balance = []
+
+        for i in range(len(chogama)):
+            x_axis.append((chogama.loc[i, chogama.columns[0]]).strftime('%D'))
+            balance.append(chogama.loc[i, chogama.columns[4]])
+
+        # type = list
+        wd = data_for_graph(chogama, chogama.columns[2])
+        dp = data_for_graph(chogama, chogama.columns[3])
+
+        return render_template('dashboard.html', pie_data=pie_data, x_axis=x_axis, balance=balance, withdrawal=wd,
+                               deposit=dp, tables=[df.to_html(classes='data', na_rep='')], titles=df.columns.values)
     else:
         return render_template('home.html')
 

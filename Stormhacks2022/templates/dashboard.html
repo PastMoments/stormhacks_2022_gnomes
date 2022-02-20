@@ -31,20 +31,54 @@
         options: {}
     });
     </script>
-    <canvas id = "line_graph" width="100px" height="100px"></canvas>
+    <canvas id = "line_graph1" width="100px" height="100px"></canvas>
     <script>
     const data1 = {
         labels: {{x_axis|tojson}},
         datasets: [{
-            label: 'Overall Poorness',
-            data: [{{y_axis|join(', ')}}],
+            label: 'Overall Balance',
+            data: [{{balance|join(', ')}}],
             borderColor: 'rgb(255, 99, 132)',
             tension: 0.4,
         }],
     };
-    var line_chart = new Chart("line_graph", {
+    var line_chart = new Chart("line_graph1", {
       type: "line",
       data: data1,
+      options: {}
+    });
+    </script>
+    <canvas id = "line_graph2" width="100px" height="100px"></canvas>
+    <script>
+    const data2 = {
+        labels: {{x_axis|tojson}},
+        datasets: [{
+            label: 'Overall Withdrawal',
+            data: [{{withdrawal|join(', ')}}],
+            borderColor: 'rgb(255, 99, 132)',
+            tension: 0.4,
+        }],
+    };
+    var line_chart = new Chart("line_graph2", {
+      type: "line",
+      data: data2,
+      options: {}
+    });
+    </script>
+    <canvas id = "line_graph3" width="100px" height="100px"></canvas>
+    <script>
+    const data3 = {
+        labels: {{x_axis|tojson}},
+        datasets: [{
+            label: 'Overall Deposit',
+            data: [{{deposit|join(', ')}}],
+            borderColor: 'rgb(255, 99, 132)',
+            tension: 0.4,
+        }],
+    };
+    var line_chart = new Chart("line_graph3", {
+      type: "line",
+      data: data3,
       options: {}
     });
     </script>
