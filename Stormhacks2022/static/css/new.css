@@ -64,8 +64,6 @@ body {
   padding: 0;
   margin: auto;
   max-width: 1440px;
-
-
 }
 
 h1,
@@ -147,7 +145,7 @@ a {
 
 .left-col {
   display: grid;
-  grid-template-rows: 1fr 1fr;
+  grid-template-rows: 2fr 3fr;
 }
 
 .heading-area {
