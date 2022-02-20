@@ -5,7 +5,7 @@
     <title>pyrite</title>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"> </script>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/new.css') }}">
   </head>
 
   <body>
@@ -34,12 +34,13 @@
     <canvas id = "line_graph" width="100px" height="100px"></canvas>
     <script>
     const data1 = {
-        labels: [{{x_axis|tojson}}],
+        labels: {{x_axis|tojson}},
         datasets: [{
             label: 'Overall Poorness',
             data: [{{y_axis|join(', ')}}],
-            borderColor: 'rgb(255, 99, 132)'
-        }]
+            borderColor: 'rgb(255, 99, 132)',
+            tension: 0.4,
+        }],
     };
     var line_chart = new Chart("line_graph", {
       type: "line",

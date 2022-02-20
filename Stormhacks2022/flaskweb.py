@@ -6,6 +6,8 @@ import re
 import sys
 import numpy as np
 
+import datetime
+
 UPLOAD_FOLDER = './uploads'
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -70,7 +72,7 @@ def dashboard():
         # wd = data_for_graph(df, df.columns[2])
         # dp = data_for_graph(df, df.columns[3])
         for i in range(len(df)):
-            x_axis.append(df.loc[i, df.columns[0]])
+            x_axis.append((df.loc[i, df.columns[0]]).strftime('%D'))
             y_axis.append(df.loc[i, df.columns[4]])
 
         return render_template('dashboard.html', pie_data=pie_data, x_axis=x_axis, y_axis=y_axis, tables=[df.to_html(classes='data', na_rep='')], titles=df.columns.values)
