@@ -11,22 +11,21 @@ var = None
 
 @app.route("/")
 def home():
-    return render_template('home.html')
+    if session.get("transactions"):
+        df = session.get("transactions")
+        return render_template('home.html', tables=[df.to_html(classes='data')], titles=df.columns.values)
+    else:
+        return render_template('home.html')
 
 @app.route('/uploader', methods = ['GET', 'POST'])
 def upload_file():
-   if request.method == 'POST':
-
-
-
-      f = request.files['file']
-      filename = secure_filename(f.filename)
-      f.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-
-
-      df = load_file()
-
-      return render_template('home.html', tables=[df.to_html(classes='data')], titles=df.columns.values)
+    if request.method == 'POST':
+        f = request.files['file']
+        filename = secure_filename(f.filename)
+        f.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        df = load_file()
+        session["transactions"] = df
+    return redirect(url_for('home'))
 
 def category_map(description):
     description_category_map = {
@@ -65,6 +64,7 @@ def load_file():
 
 if __name__ == '__main__':
     app.run(debug=True)
+    app.secret_key = 'any random string'
 
 
 
