@@ -33,7 +33,7 @@ def upload_file():
             df = pd.read_csv(filename, sep=',', header=None, names=colnames)
             add_categories(df)
 
-            session["transactions"] = df.to_json()
+            session["transactions"] = df.to_json(orient='table')
         else:
             session["transactions"] = ""
 
@@ -41,6 +41,8 @@ def upload_file():
 
 @app.route('/correction')
 def correct_categories():
+    if not session["transactions"]:
+        return redirect(url_for('home'))
     return render_template('correction.html')
 
 # pre-process data for the withdrawal and deposit plots
@@ -59,10 +61,11 @@ def data_for_graph(df, col):  # col = df.columns[n]
 def dashboard():
     df_json = session.get("transactions")
     if df_json:
-        df = pd.read_json(df_json, dtype=True)
+        df = pd.read_json(df_json, orient='table')
         df = df.fillna(value=np.nan)
 
-        chogama = df
+        chogama = df.copy()
+        chogama = chogama.fillna(value=0)
         pie_data = [2,10,4]
 
         # line graph related
@@ -93,7 +96,7 @@ def dashboard():
         return render_template('dashboard.html', pie_data=pie_data, x_axis=x_axis, balance=balance, withdrawal=wd,
                                deposit=dp, tables=[df.to_html(classes='data', na_rep='')], titles=df.columns.values)
     else:
-        return render_template('home.html')
+        return redirect(url_for('home'))
 
 
 def category_map(description):
