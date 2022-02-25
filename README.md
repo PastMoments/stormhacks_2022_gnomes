@@ -1,3 +1,10 @@
+This is a submission for Stormmhacks 2022:
+https://devpost.com/software/pyrite-making-finance-management-fun
+
+
+
+
+
 Installing/running website (on windows):
 
 first navigate to the location of the repository on cmd
